@@ -205,7 +205,13 @@ module.exports = (React, ReactNative, { constants, model, styles }) => {
       const { w: menuWidth, px: menuPX, py: menuPY } = menuMeasurements
       const { w: ownWidth, px: ownPX, py: ownPY } = this._ownMeasurements
       const optionsTop = menuPY - ownPY
-      const optionsRight = ownWidth + ownPX - menuPX - menuWidth
+      // const optionsRight = ownWidth + ownPX - menuPX - menuWidth
+      const optionsContainerWidth = options.props.optionsContainerStyle && options.props.optionsContainerStyle.width ? options.props.optionsContainerStyle.width : styles.optionsContainer.width || 200;
+      let optionsRight = ownWidth + ownPX - menuPX - menuWidth;
+      if(optionsContainerWidth >= ownWidth - optionsRight){
+          optionsRight = 5;
+      }
+
       return makeOptions(options, { top: optionsTop, right: optionsRight })
     },
 
